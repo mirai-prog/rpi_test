@@ -21,5 +21,5 @@ GPIO.output(17,GPIO.HIGH)
 time.sleep(1)
 
 print('[INFO] Yellow led off')
-GPIO.output(18, GPIO.LOW)
+GPIO.output(17, GPIO.LOW)
 
