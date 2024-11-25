@@ -24,10 +24,10 @@ print('[INFO] Yellow led off')
 GPIO.output(27, GPIO.LOW)
 
 #--------
-GPIO.setup(27,GPIO.OUT)
+GPIO.setup(22,GPIO.OUT)
 print('[INFO] Yellow led on')
-GPIO.output(27,GPIO.HIGH)
+GPIO.output(22,GPIO.HIGH)
 time.sleep(1)
 print('[INFO] Yellow led off')
-GPIO.output(27, GPIO.LOW)
+GPIO.output(22, GPIO.LOW)
 
