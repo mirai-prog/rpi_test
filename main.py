@@ -2,79 +2,79 @@ import RPi.GPIO as GPIO
 import time
 import random
 
-# Konfiguracja GPIO
+# Настройка GPIO
 GPIO.setmode(GPIO.BCM)
 
-# Piny dla diod LED i przycisku
-LED_PINS = [17, 27, 22]  # Piny dla 3 diod LED
-BUTTON_PIN = 4  # Pin dla przycisku
+# Пины для светодиодов и кнопок
+LED_PINS = [17, 27, 22]  # Пины для 3 светодиодов
+BUTTON_PINS = [4, 9, 11]  # Пины для 3 кнопок
 
-# Ustawienia pinów
-for pin in LED_PINS:
-    GPIO.setup(pin, GPIO.OUT)
-    GPIO.output(pin, GPIO.LOW)
+# Настройка пинов
+for led_pin in LED_PINS:
+    GPIO.setup(led_pin, GPIO.OUT)
+    GPIO.output(led_pin, GPIO.LOW)
 
-GPIO.setup(BUTTON_PIN, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+for btn_pin in BUTTON_PINS:
+    GPIO.setup(btn_pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
-# Funkcja wyświetlająca sekwencję startową z losowaniem czasu
+# Функция для отображения стартовой последовательности
 def start_sequence():
-    for _ in range(3):  # Powtarzaj 3 razy
+    for _ in range(3):  # Повторить 3 раза
         for pin in LED_PINS:
             GPIO.output(pin, GPIO.HIGH)
-            time.sleep(random.uniform(0.2, 1.0))  # Losowy czas 0.2-1 sekundy
+            time.sleep(random.uniform(0.2, 1.0))  # Случайная задержка 0.2-1 сек
             GPIO.output(pin, GPIO.LOW)
-        time.sleep(random.uniform(0.2, 1.0))  # Losowy czas między cyklami
+        time.sleep(random.uniform(0.2, 1.0))  # Задержка между циклами
 
-# Funkcja pomiaru czasu reakcji
-def measure_reaction_time():
-    random_led = random.choice(LED_PINS)  # Wybierz losową diodę
-    time.sleep(random.uniform(2, 5))  # Czekaj losowy czas 2-5 sekund
-    GPIO.output(random_led, GPIO.HIGH)  # Włącz diodę
-    start_time = time.time()  # Zarejestruj czas startu
+# Функция измерения времени реакции для конкретного светодиода и кнопки
+def measure_reaction_time(led_pin, btn_pin):
+    time.sleep(random.uniform(2, 5))  # Ожидание случайного времени
+    GPIO.output(led_pin, GPIO.HIGH)  # Включить светодиод
+    start_time = time.time()  # Запомнить время включения
 
-    while GPIO.input(BUTTON_PIN):  # Czekaj na naciśnięcie przycisku
+    while GPIO.input(btn_pin):  # Ожидание нажатия кнопки
         pass
 
-    reaction_time = time.time() - start_time  # Oblicz czas reakcji
-    GPIO.output(random_led, GPIO.LOW)  # Wyłącz diodę
+    reaction_time = time.time() - start_time  # Вычислить время реакции
+    GPIO.output(led_pin, GPIO.LOW)  # Выключить светодиод
     return reaction_time
 
-# Główna funkcja programu
+# Главная функция программы
 def main():
     try:
-        name = input("Podaj swoje imię: ")  # Pobierz imię użytkownika
-        print("Rozpoczynamy pomiary czasu reakcji!")
+        name = input("Введите ваше имя: ")
+        print("Начинаем измерение времени реакции!")
         results = []
 
-        # Sekwencja startowa
+        # Стартовая последовательность
         start_sequence()
 
-        # 3 pomiary czasu reakcji
+        # 3 измерения, одно для каждого светодиода и кнопки
         for i in range(3):
-            print(f"Pomiar {i+1}: Przygotuj się...")
-            result = measure_reaction_time()
+            print(f"Тест {i+1}: Приготовьтесь...")
+            result = measure_reaction_time(LED_PINS[i], BUTTON_PINS[i])
             results.append(result)
-            print(f"Twój czas reakcji: {result:.3f} sekundy")
+            print(f"Ваше время реакции: {result:.3f} секунды")
             time.sleep(1)
 
-        # Oblicz średni czas reakcji
+        # Подсчет среднего времени реакции
         average_time = sum(results) / len(results)
-        print(f"Średni czas reakcji: {average_time:.3f} sekundy")
+        print(f"Среднее время реакции: {average_time:.3f} секунды")
 
-        # Zapis wyników do pliku
+        # Сохранение результатов в файл
         with open("reaction_times.txt", "a") as file:
             file.write(f"{name}\n")
-            file.write(f"Wyniki: {', '.join(f'{r:.3f}' for r in results)}\n")
-            file.write(f"Średni czas: {average_time:.3f} sekundy\n")
+            file.write(f"Результаты: {', '.join(f'{r:.3f}' for r in results)}\n")
+            file.write(f"Среднее время: {average_time:.3f} секунды\n")
             file.write("-" * 30 + "\n")
 
-        print("Wyniki zapisane do pliku 'reaction_times.txt'.")
+        print("Результаты сохранены в файл 'reaction_times.txt'.")
 
     except KeyboardInterrupt:
-        print("\nProgram przerwany przez użytkownika.")
+        print("\nПрограмма прервана пользователем.")
 
     finally:
-        GPIO.cleanup()  # Czyszczenie ustawień GPIO
+        GPIO.cleanup()  # Очистка настроек GPIO
 
 if __name__ == "__main__":
     main()
