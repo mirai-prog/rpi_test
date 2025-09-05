@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Kafelkowanie Łazienki</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .container { max-width: 400px; }
+        input, button { margin: 5px 0; }
+        #result { margin-top: 10px; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Kafelkowanie Łazienki</h2>
+        <label>Powierzchnia w m²:</label><br>
+        <input type="number" id="area" step="0.01" min="0"><br>
+        <label>Wybież płytki:</label><br>
+        <input type="radio" name="tile" value="20x20" id="tile20"> <label for="tile20">Płytki 20 x 20 cm</label><br>
+        <input type="radio" name="tile" value="25x12" id="tile25"> <label for="tile25">Płytki 25 x 12 cm</label><br>
+        <button onclick="calculateCost()">Przelicz</button>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        function calculateCost() {
+            const area = parseFloat(document.getElementById('area').value) || 0;
+            const tileType = document.querySelector('input[name="tile"]:checked')?.value;
+
+            let costPerSqm = 0;
+            if (tileType === '20x20') costPerSqm = 70;
+            else if (tileType === '25x12') costPerSqm = 80;
+
+            const totalCost = area * costPerSqm;
+            document.getElementById('result').innerText = 
+                `Koszt kafelkowania: ${totalCost.toFixed(2)} zł`;
+        }
+    </script>
+</body>
+</html>
