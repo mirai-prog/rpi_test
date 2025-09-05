@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Kalkulator Kosztu Ogłoszenia</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .container { max-width: 400px; }
+        input, button { margin: 5px 0; }
+        #result { margin-top: 10px; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Ile kosztuje ogłoszenie?</h2>
+        <label>Podaj liczbę ogłoszeń:</label><br>
+        <input type="number" id="adCount" min="1"><br>
+        <label><input type="checkbox" id="newsletter"> Policj upust na newsletter</label><br>
+        <button onclick="calculateCost()">Oblicz</button>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        function calculateCost() {
+            const adCount = parseInt(document.getElementById('adCount').value) || 0;
+            const newsletterDiscount = document.getElementById('newsletter').checked;
+            let cost = 0;
+
+            if (adCount >= 1 && adCount <= 50) {
+                cost = adCount * 2; // 2 PLN per ad
+            } else if (adCount >= 51) {
+                cost = adCount * 1; // 1 PLN per ad
+            }
+
+            if (newsletterDiscount && adCount > 0) {
+                cost -= adCount * 0.20; // 0.20 PLN discount per ad
+            }
+
+            cost = Math.max(0, cost); // Ensure cost is not negative
+
+            document.getElementById('result').innerText = 
+                `Koszt ogłoszenia: ${cost.toFixed(2)} PLN`;
+        }
+    </script>
+</body>
+</html>
