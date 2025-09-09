@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kafelkowanie Łazienki</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f0f4f8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            background-color: #ffffff;
+            max-width: 400px;
+            width: 100%;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        label {
+            color: #34495e;
+            font-size: 14px;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #dfe6e9;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        input[type="number"]:focus {
+            outline: none;
+            border-color: #3498db;
+        }
+
+        .tile-options {
+            margin: 15px 0;
+        }
+
+        .tile-options label {
+            font-size: 14px;
+            color: #34495e;
+            margin-left: 8px;
+            cursor: pointer;
+        }
+
+        input[type="radio"] {
+            accent-color: #3498db;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #3498db;
+            color: #ffffff;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.1s;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+
+        #result {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 16px;
+            color: #2c3e50;
+            font-weight: 600;
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+
+        #result.show {
+            opacity: 1;
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 15px;
+            }
+
+            h2 {
+                font-size: 24px;
+            }
+
+            button {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Kafelkowanie Łazienki</h2>
+        <label for="area">Powierzchnia w m²:</label>
+        <input type="number" id="area" step="0.01" min="0" placeholder="np. 10.5">
+        <div class="tile-options">
+            <label>Wybierz płytki:</label>
+            <input type="radio" name="tile" value="20x20" id="tile20"> 
+            <label for="tile20">Płytki 20 x 20 cm (70 zł/m²)</label><br>
+            <input type="radio" name="tile" value="25x12" id="tile25"> 
+            <label for="tile25">Płytki 25 x 12 cm (80 zł/m²)</label>
+        </div>
+        <button onclick="calculateCost()">Przelicz</button>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        function calculateCost() {
+            const area = parseFloat(document.getElementById('area').value) || 0;
+            const tileType = document.querySelector('input[name="tile"]:checked')?.value;
+            const resultDiv = document.getElementById('result');
+
+            let costPerSqm = 0;
+            if (tileType === '20x20') costPerSqm = 70;
+            else if (tileType === '25x12') costPerSqm = 80;
+
+            const totalCost = area * costPerSqm;
+            resultDiv.innerText = `Koszt kafelkowania: ${totalCost.toFixed(2)} zł`;
+            resultDiv.classList.add('show');
+        }
+    </script>
+</body>
+</html>
