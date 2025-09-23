@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <title>Zadania 1-8</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    section { border: 1px solid #888; padding: 15px; margin-bottom: 20px; border-radius: 8px; }
+    h2 { margin-top: 0; color: #004080; }
+    input, button { margin: 5px 0; padding: 5px; }
+    .result { font-weight: bold; color: darkgreen; margin-top: 10px; }
+  </style>
+</head>
+<body>
+  <h1>Zadania programistyczne (HTML + JS)</h1>
+
+  <!-- Zadanie 1 -->
+  <section>
+    <h2>Zadanie 1 - Hasło dostępowe</h2>
+    <input type="password" id="password" placeholder="Wpisz hasło">
+    <button onclick="checkPassword()">Zaloguj</button>
+    <p id="result1" class="result"></p>
+  </section>
+
+  <!-- Zadanie 2 -->
+  <section>
+    <h2>Zadanie 2 - Suma 6 liczb</h2>
+    <input type="text" id="numbers" placeholder="Podaj 6 liczb oddzielonych przecinkiem">
+    <button onclick="checkSum()">Sprawdź</button>
+    <p id="result2" class="result"></p>
+  </section>
+
+  <!-- Zadanie 3 -->
+  <section>
+    <h2>Zadanie 3 - Liczba dodatnia, ujemna czy zero</h2>
+    <input type="number" id="number" placeholder="Podaj liczbę">
+    <button onclick="checkNumber()">Sprawdź</button>
+    <p id="result3" class="result"></p>
+  </section>
+
+  <!-- Zadanie 4 -->
+  <section>
+    <h2>Zadanie 4 - Ocena z egzaminu</h2>
+    <input type="number" id="points" placeholder="Podaj liczbę punktów (0-100)">
+    <button onclick="checkGrade()">Sprawdź</button>
+    <p id="result4" class="result"></p>
+  </section>
+
+  <!-- Zadanie 5 -->
+  <section>
+    <h2>Zadanie 5 - Dwie liczby w kolejności rosnącej</h2>
+    <input type="number" id="num1" placeholder="Liczba 1">
+    <input type="number" id="num2" placeholder="Liczba 2">
+    <button onclick="sortNumbers()">Pokaż</button>
+    <p id="result5" class="result"></p>
+  </section>
+
+  <!-- Zadanie 6 -->
+  <section>
+    <h2>Zadanie 6 - Koszt druku książek</h2>
+    <input type="number" id="books" placeholder="Podaj liczbę egzemplarzy">
+    <button onclick="calcBooks()">Oblicz</button>
+    <p id="result6" class="result"></p>
+  </section>
+
+  <!-- Zadanie 7 -->
+  <section>
+    <h2>Zadanie 7 - Cena biletu PKP</h2>
+    <input type="number" id="km" placeholder="Podaj liczbę kilometrów">
+    <button onclick="calcTicket()">Oblicz</button>
+    <p id="result7" class="result"></p>
+  </section>
+
+  <!-- Zadanie 8 -->
+  <section>
+    <h2>Zadanie 8 - Godziny pracy według dnia tygodnia</h2>
+    <input type="number" id="day" placeholder="Podaj dzień tygodnia (0-6)">
+    <button onclick="checkWork()">Sprawdź</button>
+    <p id="result8" class="result"></p>
+  </section>
+
+  <script>
+    // Zadanie 1
+    function checkPassword() {
+      let correctPassword = "1234";
+      let enteredPassword = document.getElementById("password").value;
+      document.getElementById("result1").innerText =
+        enteredPassword === correctPassword ? "Poprawne zalogowanie!" : "Błędne hasło!";
+    }
+
+    // Zadanie 2
+    function checkSum() {
+      let input = document.getElementById("numbers").value;
+      let nums = input.split(",").map(Number);
+      if (nums.length !== 6) {
+        document.getElementById("result2").innerText = "Podaj dokładnie 6 liczb!";
+        return;
+      }
+      let sum = nums.reduce((a, b) => a + b, 0);
+      document.getElementById("result2").innerText =
+        sum > 30 ? "Suma liczb większa niż 30!" : "Suma liczb nie przekracza 30.";
+    }
+
+    // Zadanie 3
+    function checkNumber() {
+      let num = Number(document.getElementById("number").value);
+      let result = num > 0 ? "Liczba dodatnia." : num < 0 ? "Liczba ujemna." : "Liczba równa zero.";
+      document.getElementById("result3").innerText = result;
+    }
+
+    // Zadanie 4
+    function checkGrade() {
+      let points = Number(document.getElementById("points").value);
+      let grade;
+      if (points >= 0 && points <= 50) grade = "Dwojka";
+      else if (points <= 70) grade = "Trojka";
+      else if (points <= 90) grade = "Czwórka";
+      else if (points <= 100) grade = "Piątka";
+      else grade = "Niepoprawna liczba punktów!";
+      document.getElementById("result4").innerText = "Ocena: " + grade;
+    }
+
+    // Zadanie 5
+    function sortNumbers() {
+      let a = Number(document.getElementById("num1").value);
+      let b = Number(document.getElementById("num2").value);
+      document.getElementById("result5").innerText =
+        a < b ? `${a}, ${b}` : `${b}, ${a}`;
+    }
+
+    // Zadanie 6
+    function calcBooks() {
+      let n = Number(document.getElementById("books").value);
+      let price;
+      if (n > 1000) price = 10;
+      else if (n >= 500) price = 12;
+      else price = 15;
+      let cost = n * price;
+      document.getElementById("result6").innerText =
+        `Cena jednostkowa: ${price} zł, Koszt całkowity: ${cost} zł`;
+    }
+
+    // Zadanie 7
+    function calcTicket() {
+      let km = Number(document.getElementById("km").value);
+      let cost;
+      if (km >= 0 && km <= 10) {
+        cost = 2;
+      } else if (km <= 30) {
+        cost = 2 + (km - 10) * 0.10;
+      } else {
+        cost = 4 + (km - 30) * 0.08;
+      }
+      document.getElementById("result7").innerText =
+        `Koszt biletu za ${km} km wynosi: ${cost.toFixed(2)} zł`;
+    }
+
+    // Zadanie 8
+    function checkWork() {
+      let day = Number(document.getElementById("day").value);
+      let hours;
+      switch (day) {
+        case 0: hours = "Niedziela - wolne"; break;
+        case 1: case 2: case 3: case 4: hours = "Poniedziałek - Czwartek: 8:00 - 16:00"; break;
+        case 5: hours = "Piątek: 8:00 - 15:00"; break;
+        case 6: hours = "Sobota: 9:00 - 13:00"; break;
+        default: hours = "Błędny numer dnia tygodnia!";
+      }
+      document.getElementById("result8").innerText = hours;
+    }
+  </script>
+</body>
+</html>
