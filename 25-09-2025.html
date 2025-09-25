@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Javascript Zadania</title>
+</head>
+<body>
+    <script>
+        // 1. Wypisz na ekranie 10 kolejnych liczb całkowitych poczynając od 1
+        function task1() {
+            for (let i = 1; i <= 10; i++) {
+                document.write(i + " ");
+            }
+        }
+
+        // 2. Wypisz na ekranie 10 kolejnych liczb całkowitych poczynając od 10 w kolejności malejącej
+        function task2() {
+            for (let i = 10; i >= 1; i--) {
+                document.write(i + " ");
+            }
+        }
+
+        // 3. Oblicz i wypisz na ekranie sumę kolejnych 10 liczb całkowitych poczynając od 1
+        function task3() {
+            let sum = 0;
+            for (let i = 1; i <= 10; i++) {
+                sum += i;
+            }
+            alert("Suma: " + sum);
+        }
+
+        // 4. Wypisz na ekranie 10 kolejnych parzystych liczb całkowitych poczynając od 2
+        function task4() {
+            for (let i = 2; i <= 20; i += 2) {
+                document.write(i + " ");
+            }
+        }
+
+        // 5. Oblicz sumę elementow ciągu arytmetycznego, składającego się ze 100 elementów, z których każdy kolejny jest większy od poprzedniego o 10. Pierwszy element wynosi 5
+        function task5() {
+            let sum = 0;
+            for (let i = 0; i < 100; i++) {
+                sum += 5 + (i * 10);
+            }
+            alert("Suma: " + sum);
+        }
+
+        // 6. Algorytm obliczający silnię wprowadzonej przez użytkownika liczby
+        function task6() {
+            let n = prompt("Podaj liczbę do obliczenia silni:");
+            n = parseInt(n);
+            let factorial = 1;
+            for (let i = 1; i <= n; i++) {
+                factorial *= i;
+            }
+            alert("Silnia " + n + " = " + factorial);
+        }
+
+        // 7. Wypisz na ekran ciąg n liczb, z których każda kolejna jest kwadratem poprzedniej liczby z ciągu. Wartość pierwszej liczby podaje użytkownik
+        function task7() {
+            let n = prompt("Podaj liczbę początkową:");
+            let count = prompt("Podaj liczbę elementów:");
+            n = parseInt(n);
+            count = parseInt(count);
+            for (let i = 0; i < count; i++) {
+                document.write(n + " ");
+                n = n * n;
+            }
+        }
+
+        // 8. Oblicz sumę oraz średnią z 10 losowych liczb z przedziału <50,100>
+        function task8() {
+            let sum = 0;
+            for (let i = 0; i < 10; i++) {
+                let num = Math.floor(Math.random() * (100 - 50 + 1)) + 50;
+                sum += num;
+                document.write(num + " ");
+            }
+            let average = sum / 10;
+            alert("Suma: " + sum + ", Średnia: " + average);
+        }
+
+        // Wywołanie funkcji dla każdego zadania
+        task1(); document.write("<br>");
+        task2(); document.write("<br>");
+        task3();
+        task4(); document.write("<br>");
+        task5();
+        task6();
+        task7(); document.write("<br>");
+        task8();
+    </script>
+</body>
+</html>
