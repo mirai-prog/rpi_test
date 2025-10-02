@@ -1,81 +1,72 @@
-import RPi.GPIO as GPIO
-import time
-import random
+function zadania() {
+  let wybor = parseInt(prompt("Wybierz zadanie (1-8):"));
 
-# Konfiguracja GPIO
-GPIO.setmode(GPIO.BCM)
+  switch (wybor) {
+    case 1:
+      // 1. 10 kolejnych liczb całkowitych od 1
+      for (let i = 1; i <= 10; i++) console.log(i);
+      break;
 
-# Piny dla diod LED i przycisków
-LED_PINS = [17, 27, 22]  # Piny dla 3 diod LED
-BUTTON_PINS = [4, 9, 11]  # Piny dla 3 przycisków
+    case 2:
+      // 2. 10 kolejnych liczb całkowitych od 10 malejąco
+      for (let i = 10; i >= 1; i--) console.log(i);
+      break;
 
-# Ustawienie pinów
-for led_pin in LED_PINS:
-    GPIO.setup(led_pin, GPIO.OUT)
-    GPIO.output(led_pin, GPIO.LOW)
+    case 3:
+      // 3. Suma kolejnych 10 liczb od 1
+      let suma = 0;
+      for (let i = 1; i <= 10; i++) suma += i;
+      console.log("Suma =", suma);
+      break;
 
-for btn_pin in BUTTON_PINS:
-    GPIO.setup(btn_pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+    case 4:
+      // 4. 10 liczb parzystych od 2
+      for (let i = 2; i <= 20; i += 2) console.log(i);
+      break;
 
-# Funkcja wyświetlająca sekwencję startową
-def start_sequence():
-    for _ in range(3):  # Powtarzaj 3 razy
-        for pin in LED_PINS:
-            GPIO.output(pin, GPIO.HIGH)
-            time.sleep(random.uniform(0.2, 1.0))  # Losowy czas 0.2-1 sekundy
-            GPIO.output(pin, GPIO.LOW)
-        time.sleep(random.uniform(0.2, 1.0))  # Losowy czas między cyklami
+    case 5:
+      // 5. Suma 100 elementów ciągu arytmetycznego (a1=5, d=10)
+      let sumaCiagu = 0;
+      let a = 5;
+      for (let i = 0; i < 100; i++) sumaCiagu += a + i * 10;
+      console.log("Suma ciągu =", sumaCiagu);
+      break;
 
-# Funkcja pomiaru czasu reakcji dla konkretnej diody LED i przycisku
-def measure_reaction_time(led_pin, btn_pin):
-    time.sleep(random.uniform(2, 5))  # Czekaj losowy czas 2-5 sekund
-    GPIO.output(led_pin, GPIO.HIGH)  # Włącz diodę
-    start_time = time.time()  # Zarejestruj czas startu
+    case 6:
+      // 6. Silnia liczby
+      let n = parseInt(prompt("Podaj liczbę:"));
+      let silnia = 1;
+      for (let i = 1; i <= n; i++) silnia *= i;
+      console.log(n + "! =", silnia);
+      break;
 
-    while GPIO.input(btn_pin):  # Czekaj na naciśnięcie przycisku
-        pass
+    case 7:
+      // 7. Ciąg n liczb, każda kolejna to kwadrat poprzedniej
+      let ile = parseInt(prompt("Podaj ilość elementów:"));
+      let pierwsza = parseInt(prompt("Podaj pierwszą liczbę:"));
+      let liczba = pierwsza;
+      for (let i = 0; i < ile; i++) {
+        console.log(liczba);
+        liczba = liczba ** 2;
+      }
+      break;
 
-    reaction_time = time.time() - start_time  # Oblicz czas reakcji
-    GPIO.output(led_pin, GPIO.LOW)  # Wyłącz diodę
-    return reaction_time
+    case 8:
+      // 8. Suma i średnia 10 losowych liczb z przedziału 50-100
+      let sumaLos = 0;
+      for (let i = 0; i < 10; i++) {
+        let los = Math.floor(Math.random() * 51) + 50;
+        console.log(los);
+        sumaLos += los;
+      }
+      let srednia = sumaLos / 10;
+      console.log("Suma =", sumaLos);
+      console.log("Średnia =", srednia);
+      break;
 
-# Główna funkcja programu
-def main():
-    try:
-        name = input("Podaj swoje imię: ")  # Pobierz imię użytkownika
-        print("Rozpoczynamy pomiary czasu reakcji!")
-        results = []
+    default:
+      console.log("Nie ma takiego zadania!");
+  }
+}
 
-        # Sekwencja startowa
-        start_sequence()
-
-        # 3 pomiary, po jednym dla każdej diody LED i przycisku
-        for i in range(3):
-            print(f"Test {i+1}: Przygotuj się...")
-            result = measure_reaction_time(LED_PINS[i], BUTTON_PINS[i])
-            results.append(result)
-            print(f"Twój czas reakcji: {result:.3f} sekundy")
-            time.sleep(1)
-
-        # Oblicz średni czas reakcji
-        average_time = sum(results) / len(results)
-        print(f"Średni czas reakcji: {average_time:.3f} sekundy")
-
-        # Zapisz wyniki do pliku
-        with open("reaction_times.txt", "a") as file:
-            file.write(f"{name}\n")
-            file.write(f"Wyniki: {', '.join(f'{r:.3f}' for r in results)}\n")
-            file.write(f"Średni czas: {average_time:.3f} sekundy\n")
-            file.write("-" * 30 + "\n")
-
-        print("Wyniki zapisane do pliku 'reaction_times.txt'.")
-
-    except KeyboardInterrupt:
-        print("\nProgram przerwany przez użytkownika.")
-
-    finally:
-        GPIO.cleanup()  # Czyszczenie ustawień GPIO
-
-if __name__ == "__main__":
-    main()
-
+zadania();
