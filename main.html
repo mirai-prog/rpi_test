@@ -1,46 +1,96 @@
 <!DOCTYPE html>
-<html lang="pl">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Kalkulator Kosztu Ogłoszenia</title>
-    <style>
-        body { font-family: Arial, sans-serif; margin: 20px; }
-        .container { max-width: 400px; }
-        input, button { margin: 5px 0; }
-        #result { margin-top: 10px; font-weight: bold; }
-    </style>
+    <title>JavaScript Tasks</title>
 </head>
 <body>
-    <div class="container">
-        <h2>Ile kosztuje ogłoszenie?</h2>
-        <label>Podaj liczbę ogłoszeń:</label><br>
-        <input type="number" id="adCount" min="1"><br>
-        <label><input type="checkbox" id="newsletter"> Policj upust na newsletter</label><br>
-        <button onclick="calculateCost()">Oblicz</button>
-        <div id="result"></div>
-    </div>
-
     <script>
-        function calculateCost() {
-            const adCount = parseInt(document.getElementById('adCount').value) || 0;
-            const newsletterDiscount = document.getElementById('newsletter').checked;
-            let cost = 0;
-
-            if (adCount >= 1 && adCount <= 50) {
-                cost = adCount * 2; // 2 PLN per ad
-            } else if (adCount >= 51) {
-                cost = adCount * 1; // 1 PLN per ad
+        // 1
+        function task1() {
+            let result = "";
+            for (let i = 1; i <= 20; i += 2) {
+                result += (i + 1) + " ";
             }
-
-            if (newsletterDiscount && adCount > 0) {
-                cost -= adCount * 0.20; // 0.20 PLN discount per ad
-            }
-
-            cost = Math.max(0, cost); // Ensure cost is not negative
-
-            document.getElementById('result').innerText = 
-                `Koszt ogłoszenia: ${cost.toFixed(2)} PLN`;
+            alert(result);
         }
+
+        // 2
+        function task2() {
+            let result = "";
+            for (let i = 10; i < 30; i += 2) {
+                result += i + " ";
+            }
+            alert(result);
+        }
+
+        // 3
+        function task3() {
+            let sum = 0;
+            for (let i = 1; i <= 20; i += 2) {
+                sum += (i + 1);
+            }
+            alert("Sum: " + sum);
+        }
+
+        // 4
+        function task4() {
+            let result = "";
+            for (let i = 2; i < 22; i += 2) {
+                result += i + " ";
+            }
+            alert(result);
+        }
+
+        // 5
+        function task5() {
+            let sum = 0;
+            for (let i = 0; i < 100; i++) {
+                sum += 5 + (i * 10);
+            }
+            alert("Sum: " + sum);
+        }
+
+        // 6
+        function task6() {
+            let num = prompt("Enter a number:");
+            let sum = 0;
+            for (let digit of num.toString()) {
+                sum += parseInt(digit);
+            }
+            alert("Sum of digits: " + sum);
+        }
+
+        // 7
+        function task7() {
+            let start = parseInt(prompt("Enter the first number:"));
+            let result = start + " ";
+            for (let i = 1; i < 10; i++) {
+                start *= start;
+                result += start + " ";
+            }
+            alert(result);
+        }
+
+        // 8
+        function task8() {
+            let sum = 0;
+            for (let i = 0; i < 10; i++) {
+                let num = Math.floor(Math.random() * (100 - 50 + 1)) + 50;
+                sum += num;
+            }
+            let average = sum / 10;
+            alert("Sum: " + sum + ", Average: " + average);
+        }
+
+        // Run tasks (uncomment to test individually)
+        // task1();
+        // task2();
+        // task3();
+        // task4();
+        // task5();
+        // task6();
+        // task7();
+        // task8();
     </script>
 </body>
 </html>
