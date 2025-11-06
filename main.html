@@ -1,96 +1,173 @@
 <!DOCTYPE html>
-<html>
+<html lang="pl">
 <head>
-    <title>JavaScript Tasks</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zadania Flexbox - Połączone</title>
+    <!-- Удалена ссылка на style.css -->
+    <style>
+        /* Общие стили для всех контейнеров и элементов */
+        .container {
+            display: flex;
+            border: 2px solid #ccc;
+            padding: 10px;
+            margin-bottom: 20px;
+            min-height: 150px; /* Для демонстрации вертикального выравнивания */
+            width: 500px; /* Ограниченная ширина для демонстрации wrap */
+            box-sizing: border-box;
+        }
+
+        .container > div {
+            width: 50px;
+            height: 50px;
+            margin: 5px;
+            background-color: #f00;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            border: 1px solid #fff;
+            flex-shrink: 0; /* Чтобы элементы не сжимались по умолчанию */
+        }
+
+        /* Стили для Задания 1: Левый верхний угол */
+        /* HTML: <div class="container task-1">...</div> */
+        .task-1 {
+            /* По умолчанию: flex-direction: row; flex-wrap: nowrap; */
+            justify-content: flex-start; /* Левая кромка */
+            align-items: flex-start; /* Верхний угол */
+        }
+
+        /* Стили для Задания 2: Обратный порядок, Правый верхний угол */
+        /* HTML: <div class="container task-2">...</div> */
+        .task-2 {
+            flex-direction: row-reverse; /* Обратный порядок */
+            justify-content: flex-start; /* Левая кромка (поскольку порядок обратный, элементы 3, 2, 1 будут начинаться слева) */
+            align-items: flex-start; /* Верхний угол */
+        }
+
+        /* Стили для Задания 3: Три ряда по четыре, с переносом, выравнивание по левому краю */
+        /* HTML: <div class="container task-3">...</div> */
+        .task-3 {
+            flex-wrap: wrap;
+            justify-content: flex-start;
+            align-content: flex-start;
+            width: 220px; /* 3 элемента в ряду для демонстрации wrap */
+        }
+
+        /* Стили для Задания 4: Три блока по центру, горизонтально */
+        /* HTML: <div class="container task-4">...</div> */
+        .task-4 {
+            justify-content: center; /* Центрирование по горизонтали */
+            align-items: center; /* Центрирование по вертикали */
+        }
+
+        /* Стили для Задания 5: Три блока по центру, вертикально */
+        /* HTML: <div class="container task-5">...</div> */
+        .task-5 {
+            flex-direction: column; /* Вертикальное расположение */
+            justify-content: center; /* Центрирование по вертикали */
+            align-items: center; /* Центрирование по горизонтали */
+            width: 100px; /* Уменьшаем ширину для лучшей визуализации вертикального контейнера */
+        }
+
+        /* Стили для Задания 6: Смена расположения элементов (дополнительное задание) */
+        .task-6 {
+            flex-wrap: wrap;
+            align-content: space-between;
+            width: 200px;
+            min-height: 200px;
+        }
+
+        .task-6 > div:nth-child(-n+3) {
+            width: 100%;
+            margin: 5px 0;
+            flex-shrink: 1;
+            align-self: flex-start;
+        }
+
+        .task-6 > div:nth-child(n+4) {
+            width: 50px;
+            margin: 5px;
+            flex-shrink: 0;
+            align-self: flex-end;
+        }
+
+        /* Дополнительные стили из оригинального index.html */
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        h2 {
+            margin-top: 40px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 5px;
+        }
+        .container {
+            border: 2px solid #4CAF50; /* Переопределение для визуального выделения */
+        }
+        .container > div {
+            background-color: #2196F3; /* Переопределение для визуального выделения */
+        }
+    </style>
 </head>
 <body>
-    <script>
-        // 1
-        function task1() {
-            let result = "";
-            for (let i = 1; i <= 20; i += 2) {
-                result += (i + 1) + " ";
-            }
-            alert(result);
-        }
+    <h1>Zadania Flexbox</h1>
 
-        // 2
-        function task2() {
-            let result = "";
-            for (let i = 10; i < 30; i += 2) {
-                result += i + " ";
-            }
-            alert(result);
-        }
+    <h2>Zadanie 1: Lewa górna (krawędź oraz róg)</h2>
+    <div class="container task-1">
+        <div>1</div>
+        <div>2</div>
+        <div>3</div>
+    </div>
 
-        // 3
-        function task3() {
-            let sum = 0;
-            for (let i = 1; i <= 20; i += 2) {
-                sum += (i + 1);
-            }
-            alert("Sum: " + sum);
-        }
+    <h2>Zadanie 2: Odwrócona kolejność. Prawy, górny róg.</h2>
+    <div class="container task-2">
+        <div>1</div>
+        <div>2</div>
+        <div>3</div>
+    </div>
 
-        // 4
-        function task4() {
-            let result = "";
-            for (let i = 2; i < 22; i += 2) {
-                result += i + " ";
-            }
-            alert(result);
-        }
+    <h2>Zadanie 3: Trzy rzędy bloczków, po cztery, ułożone od lewej krawędzi, pierwszy od lewego rogu.</h2>
+    <div class="container task-3">
+        <div>1</div>
+        <div>2</div>
+        <div>3</div>
+        <div>4</div>
+        <div>5</div>
+        <div>6</div>
+        <div>7</div>
+        <div>8</div>
+        <div>9</div>
+        <div>10</div>
+        <div>11</div>
+        <div>12</div>
+    </div>
 
-        // 5
-        function task5() {
-            let sum = 0;
-            for (let i = 0; i < 100; i++) {
-                sum += 5 + (i * 10);
-            }
-            alert("Sum: " + sum);
-        }
+    <h2>Zadanie 4: Trzy bloczki na środku, poziomo.</h2>
+    <div class="container task-4">
+        <div>1</div>
+        <div>2</div>
+        <div>3</div>
+    </div>
 
-        // 6
-        function task6() {
-            let num = prompt("Enter a number:");
-            let sum = 0;
-            for (let digit of num.toString()) {
-                sum += parseInt(digit);
-            }
-            alert("Sum of digits: " + sum);
-        }
+    <h2>Zadanie 5: Trzy bloczki ma środku, pionowo.</h2>
+    <div class="container task-5">
+        <div>1</div>
+        <div>2</div>
+        <div>3</div>
+    </div>
 
-        // 7
-        function task7() {
-            let start = parseInt(prompt("Enter the first number:"));
-            let result = start + " ";
-            for (let i = 1; i < 10; i++) {
-                start *= start;
-                result += start + " ";
-            }
-            alert(result);
-        }
+    <h2>Zadanie 6: Zmiana ułożenia elementów (dodatkowe zadanie)</h2>
+    <div class="container task-6">
+        <div>1</div>
+        <div>2</div>
+        <div>3</div>
+        <div>4</div>
+        <div>5</div>
+        <div>6</div>
+    </div>
 
-        // 8
-        function task8() {
-            let sum = 0;
-            for (let i = 0; i < 10; i++) {
-                let num = Math.floor(Math.random() * (100 - 50 + 1)) + 50;
-                sum += num;
-            }
-            let average = sum / 10;
-            alert("Sum: " + sum + ", Average: " + average);
-        }
-
-        // Run tasks (uncomment to test individually)
-        // task1();
-        // task2();
-        // task3();
-        // task4();
-        // task5();
-        // task6();
-        // task7();
-        // task8();
-    </script>
 </body>
 </html>
