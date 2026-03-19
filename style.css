@@ -1,0 +1,62 @@
+* {
+    font-family: Tahoma;
+}
+
+header {
+    background-color: #519657;
+    color: white;
+    text-align: center;
+    height: 150px;
+    float: left;
+}
+
+header:first-of-type {
+    width: 70%;
+}
+
+header:last-of-type {
+    width: 30%;
+}
+
+main, aside, section {
+    background-color: #E1E1E1;
+    height: 450px;
+    float: left;
+}
+
+aside {
+    width: 25%;
+}
+
+main {
+    width: 50%;
+    overflow: auto;
+}
+
+footer {
+    clear: both;
+    background-color: #80C683;
+    text-align: center;
+}
+
+img[src="obraz2.jpg"] {
+    width: 100%;
+    padding-top: 100px;
+    padding-bottom: 100px;
+}
+
+table {
+    border: 1px solid #80C683;
+}
+
+td, th {
+    padding: 2 px;
+}
+
+tr:hover {
+    background-color: #80C683;
+}
+
+tr:last-child {
+    background-color: red;
+}
